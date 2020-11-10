@@ -6,7 +6,7 @@ create_btn.addEventListener("click", async function(event) {
     event.preventDefault()
 
     let webhook = webhook_box.value
-    let data = await fetch('https://jxl-roblox.herokuapp.com/create-log', {
+    let data = await fetch('https://YOURHEROKUAPP.herokuapp.com/create-log', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
