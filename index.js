@@ -76,8 +76,7 @@ app.post('/create-log', async (req, res) => {
     console.log(webhook)
 
     if (!webhook) {
-        res.send("Invalid webhook. DOESNT EXIST")
-        return
+        validwebhook(webhook)
     }
     else if(!validwebhook(webhook)) {
         res.send("Invalid webhook. COULDNT FIND RESPONSE FROM SERVER")
